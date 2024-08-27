@@ -7,10 +7,27 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <input type="range" id="grid-size-slider" name="grid-size" min="10" max="100">
-  <label for="grid-size-slider" id="grid-size"></label>
-  <div id="container">
+  <div class="container">
+    <div id="options">
+      <div id="sliders">
+        <div class="size-slider">
+          <input type="range" id="grid-size-slider" name="grid-size" min="10" max="100">
+          <label for="grid-size-slider" id="grid-size"></label>
+        </div>
+        <div class="color-slider">
+          <input type="color" name="color-picker" id="color-picker" value="#ff0000">
+          <label for="color-picker" id="color-text">Pick a color</label>
+        </div>
+      </div>
+      <div id="buttons">
+
+      </div>
+    </div>
+    <div id="boxes-container">
+    </div>
+
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -4,14 +4,34 @@
   padding: 0;
 }
 
-#container {
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+}
+
+#options {
+
+}
+
+#sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#boxes-container {
   width: 560px;
   height: 560px;
   display: flex;
   flex-wrap: wrap;
 }
 
-#container > * {
+#boxes-container > * {
   flex-basis: 10%;
 }
 
