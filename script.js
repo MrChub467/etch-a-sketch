@@ -1,10 +1,30 @@
 const boxesContainer = document.querySelector("#container");
 
-for (let i = 0; i < 16**2; i++) {
-  let newBox = document.createElement("div");
-  newBox.classList.add("box");
-  newBox.textContent = "box";
-  boxesContainer.appendChild(newBox);
+const gridSizeSlider = document.querySelector("#grid-size-slider");
+let gridSizeLabel = document.querySelector("#grid-size"); 
+let gridArray = [];
+
+
+
+function emptyGrid() {
+  gridArray.forEach(child => {
+    boxesContainer.removeChild(child);
+  });
+  gridArray.length = 0;
+}
+
+function changeGridSize() {
+  emptyGrid();
+  for (let i = 0; i < (gridSizeSlider.value)**2; i++) {
+    let newBox = document.createElement("div");
+    newBox.classList.add("box");
+    gridArray.push(newBox);
+    boxesContainer.appendChild(newBox);
+  }
+  let newFlexBasis = 100 / gridSizeSlider.value;
+  gridArray.forEach(box => {
+    box.style.flexBasis = newFlexBasis + "%";
+  });
 }
 
 document.addEventListener("mouseover", (e) => {
@@ -16,5 +36,11 @@ document.addEventListener("mouseover", (e) => {
       e.target.style.backgroundColor = "black";
     }
   }
-  
 });
+
+document.addEventListener("input", (e) => {
+  gridSizeLabel.textContent = "Grid Size: " + e.target.value;
+  changeGridSize();
+});
+
+changeGridSize();
