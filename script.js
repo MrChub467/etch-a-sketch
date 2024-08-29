@@ -23,15 +23,27 @@ const boxesContainer = document.querySelector("#boxes-container");
 let isMouseDown = false;
 boxesContainer.addEventListener("mousedown", (e) => {
   isMouseDown = true;
-  e.target.style.backgroundColor = colorPicker.value;
+  //e.target.style.backgroundColor = colorPicker.value;
   e.preventDefault();
+  const index = gridArray.indexOf(e.target);
+  
+  for (let i = 0; i < 5; i++) {
+    gridArray[index + brushSizeThree[i]].style.backgroundColor = colorPicker.value;
+  }
+
 });
 document.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
 document.addEventListener("mouseover", (e) => {
   if (e.target.className === "box" && isMouseDown) {
-    e.target.style.backgroundColor = colorPicker.value;
+    const index = gridArray.indexOf(e.target);
+    
+  
+  for (let i = 0; i < 5; i++) {
+    gridArray[index + brushSizeThree[i]].style.backgroundColor = colorPicker.value;
+  }
+    //e.target.style.backgroundColor = colorPicker.value;
   }
 });
 
@@ -41,6 +53,9 @@ let gridSizeLabel = document.querySelector("#grid-size");
 gridSizeLabel.textContent = "Grid Size: " + gridSizeSlider.value;
 let colorPicker = document.querySelector("#color-picker");
 let gridArray = [];
+brushSize = 1;
+
+brushSizeThree = [-gridSizeSlider.value, -1, 0, 1, +gridSizeSlider.value];
 
 changeGridSize();
 
@@ -58,7 +73,12 @@ gridSizeSlider.addEventListener("mouseup", (e) => {
   changeGridSize();
 });
 
-// 
+function changeBrushSize() {
+  brushSize = brushSizeChanger.value;
+}
 
-
+let brushSizeChanger = document.querySelector("#brush-size")
+brushSizeChanger.addEventListener("input", (e) => {
+    changeBrushSize();
+});
 
