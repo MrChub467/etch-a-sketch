@@ -18,7 +18,17 @@ function changeGridSize() {
   gridArray.forEach(box => {
     box.style.flexBasis = newFlexBasis + "%";
   });
+  updateBrushSize();
 }
+
+// Is called when the grid size changes. It then updates the brush sizes
+function updateBrushSize() {
+  let size = gridSizeSlider.value;
+  brushSizeThree = [-size, -1, 0, 1, +size];
+  brushSizeFive = [-(size * 2), -(size - 1), -size, -(size + 1), -2, -1, 0, 1, 2, (size + 1), size, (size - 1), (size * 2)];
+  brushSizeSeven = [-(size * 3), -(size * 2 - 1), -(size * 2), -(size * 2 + 1), -(size - 2), -(size - 1), -size, -(size + 1), -(size + 2), -3, -2, -1, 0, 1, 2, 3, (size + 2), (size + 1), size, (size - 1), (size - 2), (size * 2 + 1), (size * 2), (size * 2 - 1), (size * 3)];
+}
+
 const boxesContainer = document.querySelector("#boxes-container");
 let isMouseDown = false;
 boxesContainer.addEventListener("mousedown", (e) => {
@@ -27,7 +37,7 @@ boxesContainer.addEventListener("mousedown", (e) => {
   e.preventDefault();
   const index = gridArray.indexOf(e.target);
   
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < brushSize; i++) {
     gridArray[index + brushSizeThree[i]].style.backgroundColor = colorPicker.value;
   }
 
@@ -53,9 +63,11 @@ let gridSizeLabel = document.querySelector("#grid-size");
 gridSizeLabel.textContent = "Grid Size: " + gridSizeSlider.value;
 let colorPicker = document.querySelector("#color-picker");
 let gridArray = [];
-brushSize = 1;
+let brushSize = 1;
+let brushSizeThree, brushSizeFive, brushSizeSeven;
 
-brushSizeThree = [-gridSizeSlider.value, -1, 0, 1, +gridSizeSlider.value];
+
+
 
 changeGridSize();
 
