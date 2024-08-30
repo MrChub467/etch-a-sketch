@@ -75,7 +75,6 @@ boxesContainer.addEventListener("mousedown", (e) => {
   isMouseDown = true;
   e.preventDefault();
   draw(e);
-  //console.log(gridArray.indexOf(e.target));
 });
 document.addEventListener("mouseup", () => {
   isMouseDown = false;
