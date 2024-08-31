@@ -7,25 +7,36 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <h1 id="title">Etch-a-Sketch</h1>
   <div class="container">
     <div id="options">
-      <div id="sliders">
-        <div class="size-slider">
-          <input type="range" id="grid-size-slider" name="grid-size" min="10" max="100">
-          <label for="grid-size-slider" id="grid-size"></label>
-        </div>
-        <div class="color-slider">
-          <input type="color" name="color-picker" id="color-picker" value="#ff0000">
-          <label for="color-picker" id="color-text">Pick a color</label>
-        </div>
+      <div class="size-slider">
+        <label for="grid-size-slider" id="grid-size"></label>
+        <input type="range" id="grid-size-slider" name="grid-size" min="10" max="100">
       </div>
-      <div id="buttons">
-        <select name="brushsize" id="brush-size">
+      <div class="brush-button">
+        <label for="brush-size" id="brush-text">Brush Size: </label>
+        <select name="brush-size" id="brush-size">
           <option value="1">1</option>
           <option value="3">3</option>
           <option value="5">5</option>
           <option value="7">7</option>
         </select>
+      </div>
+      <div class="color-slider">
+        <input type="color" name="color-picker" id="color-picker" value="#ff0000">
+      </div>
+      <div>
+        <button class="color-button active">Color Mode</button>
+      </div>        
+      <div class="eraser-button">
+        <button name="eraser" class="eraser">Eraser Mode</button>
+      </div>
+      <div class="clear-button">
+        <button name="clear" class="clear">Clear Grid</button>
+      </div>
+      <div class="grid-lines-button">
+        <button class="lines">Grid Lines: On</button>
       </div>
     </div>
     <div id="boxes-container">

@@ -1,7 +1,5 @@
 function emptyGrid(parent) {
-  gridArray.forEach(child => {
-    parent.removeChild(child);
-  });
+  parent.innerHTML = "";
   gridArray.length = 0;
 }
 
@@ -10,6 +8,7 @@ function changeGridSize() {
   for (let i = 0; i < (gridSizeSlider.value)**2; i++) {
     let newBox = document.createElement("div");
     newBox.classList.add("box");
+    if (gridLines) newBox.classList.add("grid-lines");
     gridArray.push(newBox);
     boxesContainer.appendChild(newBox);
   }
@@ -63,7 +62,11 @@ function draw(e) {
   for (let i = 0; i < brushSize.length; i++) {
     if (gridArray[index + brushSize[i]] !== undefined) {
       if (isElementInArea(gridArray[index + brushSize[i]], e.target)) {
-        gridArray[index + brushSize[i]].style.backgroundColor = colorPicker.value;
+        if (currentMode === "eraser") {
+          gridArray[index + brushSize[i]].style.backgroundColor = "";
+        } else {
+          gridArray[index + brushSize[i]].style.backgroundColor = colorPicker.value;
+        }
       }
     }
   }
@@ -76,11 +79,11 @@ boxesContainer.addEventListener("mousedown", (e) => {
   e.preventDefault();
   draw(e);
 });
-document.addEventListener("mouseup", () => {
+boxesContainer.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
-document.addEventListener("mouseover", (e) => {
-  if (e.target.className === "box" && isMouseDown) {
+boxesContainer.addEventListener("mouseover", (e) => {
+  if (isMouseDown) {
     draw(e);
   }
 });
@@ -89,6 +92,59 @@ let brushSizeChanger = document.querySelector("#brush-size")
 brushSizeChanger.addEventListener("input", (e) => {
     brushSize = changeBrushSize();
 });
+
+// Select the eraser
+let eraserBtn = document.querySelector(".eraser")
+eraserBtn.addEventListener("click", () => {
+  changeMode("eraser")
+})
+let currentMode = "color";
+
+const colorBtn = document.querySelector(".color-button")
+colorBtn.addEventListener("click", () => {
+  changeMode("color");
+})
+// Clear the color of the grid
+const clear = document.querySelector(".clear")
+clear.addEventListener("click", () => {
+  gridArray.forEach(box => {
+    box.style.backgroundColor = "";
+  })
+});
+
+function changeMode(newMode) {
+  if (currentMode === "color") {
+    colorBtn.classList.remove("active");
+  } else {
+    eraserBtn.classList.remove("active");
+  }
+  if (newMode === "color") {
+    colorBtn.classList.add("active");
+  } else {
+    eraserBtn.classList.add("active");
+  }
+  currentMode = newMode;
+}
+let gridLines = false;
+const lines = document.querySelector(".lines")
+lines.addEventListener("click", () => {
+  const children = boxesContainer.children;
+  if (gridLines) {
+    gridArray.forEach(box => {
+      box.classList.remove("grid-lines");
+    });
+    gridLines = false;
+    lines.textContent = "Grid Lines: On";
+  } else {
+    gridArray.forEach(box => {
+      box.classList.add("grid-lines");
+    });
+    gridLines = true;
+    lines.textContent = "Grid Lines: Off";
+  }
+});
+
+
 
 
 const gridSizeSlider = document.querySelector("#grid-size-slider");
