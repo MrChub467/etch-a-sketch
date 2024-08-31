@@ -83,7 +83,7 @@ boxesContainer.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
 boxesContainer.addEventListener("mouseover", (e) => {
-  if (isMouseDown) {
+  if ((e.target.classList === "box grid-lines" || e.target.classList === "box") && isMouseDown) {
     draw(e);
   }
 });
