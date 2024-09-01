@@ -8,7 +8,7 @@ function changeGridSize() {
   for (let i = 0; i < (gridSizeSlider.value)**2; i++) {
     let newBox = document.createElement("div");
     newBox.classList.add("box");
-    if (gridLines) newBox.classList.add("grid-lines");
+    if (gridLines) newBox.id = "grid-lines";
     gridArray.push(newBox);
     boxesContainer.appendChild(newBox);
   }
@@ -83,9 +83,12 @@ boxesContainer.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
 boxesContainer.addEventListener("mouseover", (e) => {
-  if ((e.target.classList === "box grid-lines" || e.target.classList === "box") && isMouseDown) {
+  if (isMouseDown) {
     draw(e);
   }
+});
+boxesContainer.addEventListener("mouseleave", () => {
+  isMouseDown = false;
 });
 
 let brushSizeChanger = document.querySelector("#brush-size")
@@ -128,16 +131,15 @@ function changeMode(newMode) {
 let gridLines = false;
 const lines = document.querySelector(".lines")
 lines.addEventListener("click", () => {
-  const children = boxesContainer.children;
   if (gridLines) {
     gridArray.forEach(box => {
-      box.classList.remove("grid-lines");
+      box.id = "";
     });
     gridLines = false;
     lines.textContent = "Grid Lines: On";
   } else {
     gridArray.forEach(box => {
-      box.classList.add("grid-lines");
+      box.id = "grid-lines";
     });
     gridLines = true;
     lines.textContent = "Grid Lines: Off";
