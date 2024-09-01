@@ -89,6 +89,6 @@ button.active {
   background-color: whitesmoke;
 }
 
-#grid-lines {
+.grid-lines {
   border: 1px solid rgba(151, 151, 151, 0.692);
 }
