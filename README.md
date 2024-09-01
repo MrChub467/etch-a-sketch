@@ -9,3 +9,5 @@ Options:
   - Eraser Mode
   - Color Picker
   - Clear Grid
+
+You can view it [here](https://mrchub467.github.io/etch-a-sketch/)
