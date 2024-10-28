@@ -86,11 +86,13 @@ function draw(e) {
   const index = gridArray.indexOf(e.target);
   for (let i = 0; i < brushSize.length; i++) {
     if (gridArray[index + brushSize[i]] !== undefined) {
-      if (isElementInArea(gridArray[index + brushSize[i]], e.target)) {
-        if (currentMode === "eraser") {
-          gridArray[index + brushSize[i]].style.backgroundColor = "";
-        } else {
-          gridArray[index + brushSize[i]].style.backgroundColor = colorPicker.value;
+      if (index != -1) {
+        if (isElementInArea(gridArray[index + brushSize[i]], e.target)) {
+          if (currentMode === "eraser") {
+            gridArray[index + brushSize[i]].style.backgroundColor = "";
+          } else {
+            gridArray[index + brushSize[i]].style.backgroundColor = colorPicker.value;
+          }
         }
       }
     }
