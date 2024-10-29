@@ -35,9 +35,14 @@ sizeSlider.addEventListener("input", (e) => {
 });
 
 // Changes the size of the grip when the mouse is released
-sizeSlider.addEventListener("mouseup", (e) => {
-  changeGridSize();
+sizeSlider.addEventListener("change", (e) => {
+  let timeout;
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    changeGridSize();
+  }, 200);
 });
+
 
 // Empties the grid
 function emptyGrid(parent) {
@@ -67,27 +72,35 @@ function changeGridSize() {
 boxesContainer.addEventListener("mousedown", (e) => {
   isMouseDown = true;
   e.preventDefault();
-  draw(e);
+  draw(gridArray.indexOf(e.target));
 });
 boxesContainer.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
 boxesContainer.addEventListener("mouseover", (e) => {
   if (isMouseDown) {
-    draw(e);
+    draw(gridArray.indexOf(e.target));
   }
 });
 boxesContainer.addEventListener("mouseleave", () => {
   isMouseDown = false;
 });
+boxesContainer.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const ebox = document.elementFromPoint(touch.clientX, touch.clientY);
+  draw(gridArray.indexOf(ebox));
+})
+boxesContainer.addEventListener("touchend", (e) => {
+  isMouseDown = false;
+})
 
 // Draws on the grid and calls isElementInArea
-function draw(e) {
-  const index = gridArray.indexOf(e.target);
+function draw(index) {
   for (let i = 0; i < brushSize.length; i++) {
     if (gridArray[index + brushSize[i]] !== undefined) {
       if (index != -1) {
-        if (isElementInArea(gridArray[index + brushSize[i]], e.target)) {
+        if (isElementInArea(gridArray[index + brushSize[i]], gridArray[index])) {
           if (currentMode === "eraser") {
             gridArray[index + brushSize[i]].style.backgroundColor = "";
           } else {
