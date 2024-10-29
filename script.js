@@ -87,6 +87,7 @@ boxesContainer.addEventListener("mouseleave", () => {
 });
 boxesContainer.addEventListener("touchmove", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   const touch = e.touches[0];
   const ebox = document.elementFromPoint(touch.clientX, touch.clientY);
   draw(gridArray.indexOf(ebox));
